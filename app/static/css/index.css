@@ -27,6 +27,14 @@ body{
 .navbar-brand,.nav-link{
     color: aliceblue !important;
 }
-/* h3,h5{
-    font-family: 'Comfortaa', cursive;
-} */
+.a-profile{
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.prof-dropdown{
+
+         background-color: #eee;
+         min-width: 7rem;
+ 
+}

@@ -11,7 +11,57 @@
         </li>
        
       </ul>
-      
+      <ul class="nav navbar-nav navbar-right mr-5">
+        {% if current_user.is_authenticated %}
+          <!-- exported -->
+          <li class="dropdown open">
+            <a href="#" data-toggle="dropdown" role="button" aria-expanded="true" class="dropdown-toggle" >
+            <div >
+                <div style="width: 50px;" class="mr-1 float-left">
+                    <img src="{{url_for('static',filename=current_user.profile_pic_path) if current_user.profile_pic_path else url_for('static',filename='images/person.png')}}" alt="profile image" width="50" height="50" class="rounded-circle">
+                </div>
+                 <div style="float: left; margin-top: 15px; color:black;">
+                  {{current_user.username | capitalize}}
+                                    <span class="caret " style="color: aliceblue;"></span>
+                                    <br>
+                </div>
+            </div>
+        </a>
+         <ul role="menu" class="dropdown-menu prof-dropdown px-2 py-1">
+             <li>
+                 <a href="#" class="a-profile">
+                    <i class="fa fa-user-circle-o mr-1" aria-hidden="true"></i>
+                    <small>
+
+                        Profile</small>
+                    </a>
+                </li> 
+
+             <li>
+              <a href="{{url_for('auth.logout')}}" class="a-profile">
+                <i class="fa fa-sign-out mr-1" aria-hidden="true"></i>
+                <small>
+                Sign out
+                </small>
+              </a>
+             </li> 
+                </ul>
+            </li>
+        
+        
+        
+        
+        
+        <!-- end exported -->
+        {% else %}
+        <li><a class="nav-link" href="{{url_for('auth.login')}}">
+            <i class="fa fa-sign-in mr-1" aria-hidden="true"></i>
+            Sign in</a></li>
+        <li><a  class="ml-2 nav-link" href="{{url_for('auth.register')}}">
+            <i class="fa fa-user-circle-o mr-1" aria-hidden="true"></i>
+            Sign up</a></li>
+        {%endif%}
+      </ul>
       
     </div>
   </nav>

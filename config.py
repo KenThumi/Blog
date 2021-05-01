@@ -21,7 +21,7 @@ class DevConfig(Config):
         Config: The parent configuration class with General configuration settings
     '''
     DEBUG = True
-    # SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://kenneth:admin@localhost/pitchapp'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://kenneth:admin@localhost/blog'
 
 
 class ProdConfig(Config):

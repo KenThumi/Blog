@@ -1,8 +1,9 @@
-from . import db
+from . import db, login_manager
+from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
 
-class User(db.Models):
-'''Class to handle user'''
+class User(db.Model, UserMixin):
+    '''Class to handle user'''
 
     __tablename__ = 'users'
 
