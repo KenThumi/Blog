@@ -1,3 +1,20 @@
 .bg-navbar{
     background-color: #5E5C99;
 }
+body{
+    background-color: #f7f7f7;
+    font-family: 'Ledger', serif;
+}
+
+.container{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.card{
+    border-radius: 0;
+}
+
+/* h3,h5{
+    font-family: 'Comfortaa', cursive;
+} */

@@ -6,7 +6,12 @@
 <!-- Styles block -->
 {% block styles %}
     {{super()}}
+    <link rel="shortcut icon" type="image/x-icon" 
+    href="{{url_for('static', filename='images/favicon.ico')}}">
     <link rel="stylesheet" href="{{ url_for('static',filename='css/index.css')}}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Ledger&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/font-awesome.min.css')}}">
 {% endblock %}
 <!-- Navbar block  --> 
 {% block navbar %}
