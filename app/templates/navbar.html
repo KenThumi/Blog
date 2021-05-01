@@ -18,9 +18,9 @@
             <a href="#" data-toggle="dropdown" role="button" aria-expanded="true" class="dropdown-toggle" >
             <div >
                 <div style="width: 50px;" class="mr-1 float-left">
-                    <img src="{{url_for('static',filename=current_user.profile_pic_path) if current_user.profile_pic_path else url_for('static',filename='images/person.png')}}" alt="profile image" width="50" height="50" class="rounded-circle">
+                    <img src="{{url_for('static',filename=current_user.profile_pic_path) if current_user.profile_pic_path else url_for('static',filename='photos/person.png')}}" alt="profile image" width="50" height="50" class="rounded-circle">
                 </div>
-                 <div style="float: left; margin-top: 15px; color:black;">
+                 <div style="float: left; margin-top: 15px; color: aliceblue;">
                   {{current_user.username | capitalize}}
                                     <span class="caret " style="color: aliceblue;"></span>
                                     <br>
@@ -29,7 +29,7 @@
         </a>
          <ul role="menu" class="dropdown-menu prof-dropdown px-2 py-1">
              <li>
-                 <a href="#" class="a-profile">
+                 <a href="{{url_for('main.profile',uname=current_user.username)}}" class="a-profile">
                     <i class="fa fa-user-circle-o mr-1" aria-hidden="true"></i>
                     <small>
 

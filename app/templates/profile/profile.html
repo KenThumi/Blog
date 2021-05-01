@@ -1,0 +1,58 @@
+{% extends 'base.html'%}
+
+{% block content %}
+<div class="container my-2">
+    <div class="row">
+        
+        <div class="col-md-4">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <h3> {{user.username| capitalize}} </h3>
+                </li>
+                <li class="list-group-item">
+                    Email <span class="text-muted">
+                    <p>{{user.email}}</p> 
+                    </span>
+                </li>
+                <li class="list-group-item">
+                    Bio <span class="text-muted">
+                        {% if user.bio %}
+                        <p> {{user.bio}}</p>
+                        {%else%}
+                        <p> {{user.username| capitalize}} has no bio </p>
+                        {% endif %}
+                    </span>
+                
+            </ul>
+            
+            <p>
+                {% if user == current_user %}
+            <a href="{{url_for('main.update_profile',uname=user.username)}}" class="btn btn-sm btn-outline-warning mx-auto d-block my-2">
+                <i class="fa fa-pencil-square-o mr-1" aria-hidden="true"></i>
+                Edit Bio</a>
+                {% endif %}
+            </p>
+        
+        </div>
+        <div class="col-md-4">
+                        {% if user.profile_pic_path %}
+
+                        <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" class="img-thumbnail">
+
+                        {%else%}
+                        <p>No profile picture</p>
+
+                        {% endif %}
+
+                            {% if user == current_user %}
+                        <form  action="{{url_for('main.update_pic',uname=user.username)}}" method="post" enctype = "multipart/form-data">
+
+                        <input type="file"  name="photo" class="form-control input-sm  my-1" required>
+                        <input type="submit" class="btn btn-sm my-1 btn-success">
+                        </form>
+                        {% endif %}
+        </div>
+    </div>
+
+</div>
+{% endblock %}
