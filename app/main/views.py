@@ -6,6 +6,7 @@ from .. import db,photos
 from .forms import PostForm
 from datetime import datetime
 from sqlalchemy import desc
+from ..email import mail_message
 
 
 @main.route('/')
@@ -84,6 +85,8 @@ def addpost():
 
         db.session.commit()
 
+        notify()
+
         flash('Post submitted successfully','success')
 
 
@@ -102,3 +105,12 @@ def subscribe():
     flash('Subscription submitted successfully','success')
 
     return redirect(url_for('main.home'))
+
+
+
+def notify():
+    '''Notifys users of new post'''
+    users = Subscription.query.all()
+
+    for user in users:
+        mail_message("New Arcticle","email/blog",user.email,user=user)
