@@ -169,3 +169,22 @@ def comment(id):
     return render_template('commentForm.html', comment_form=form)
 
 
+
+@main.route('/deletecomment/<id>')
+@login_required
+def deletecomment(id):
+    comment = Comment.query.get(int(id))
+    db.session.delete(comment)
+    db.session.commit()
+
+    flash('Comment deleted successfully','success')
+
+    return redirect(url_for('main.home'))
+
+
+@main.route('/fullpost/<id>')
+def fullpost(id):
+    post = Post.query.get(int(id))
+
+
+    return render_template('fullpost.html',post=post)

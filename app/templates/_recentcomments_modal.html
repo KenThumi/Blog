@@ -9,6 +9,14 @@
                   <div class="text-italic">
                       {{ comment.comment }}
                   </div><br>
+                  {% if recentpost.postowner(current_user.id) %}
+                  <small class="text-muted float-left"> 
+                    <a href="{{ url_for('main.deletecomment',id=comment.id)}}">
+                      
+                      <i class="fa fa-trash-o mr-1" aria-hidden="true"></i> Delete
+                    </a>
+                  </small>
+               {% endif %}
                       <small class="text-muted float-right"> 
                           - {{comment.user.username}}
                       </small>

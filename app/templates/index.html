@@ -36,7 +36,7 @@
                   <p class="card-text">{{recentpost.description | truncate(110) }}</p>
                   <p>
                       <div class="float-left">
-                        <a href="#" class="float-left">read more>>>>></a>
+                        <a href="{{ url_for('main.fullpost',id=recentpost.id)}}" class="float-left">read more>>>>></a>
                       </div>
                       <div class="float-right">
                         <a href="#" target="_blank" class="card-link"  data-toggle="modal" data-target="#recent-modal-{{recentpost.id}}">
@@ -107,7 +107,7 @@
                   <p class="card-text">{{post.description | truncate(42)}}</p>
                   <p>
                       <div class="float-left">
-                        <a href="#" class="float-left">read more>>>>></a>
+                        <a href="{{ url_for('main.fullpost',id=post.id)}}" class="float-left">read more>>>>></a>
                       </div>
                       <div class="float-right">
                         <a href="#" target="_blank" class="card-link"  data-toggle="modal" data-target="#modal-{{post.id}}">
