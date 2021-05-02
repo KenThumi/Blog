@@ -1,17 +1,25 @@
 from . import main
 from flask import render_template,redirect,url_for, flash,request,abort
 from flask_login import login_required, current_user
-from ..models import User,Post
+from ..models import User,Post, Subscription
 from .. import db,photos
 from .forms import PostForm
 from datetime import datetime
+from sqlalchemy import desc
 
 
 @main.route('/')
 def home():
     '''Home route'''
 
-    return render_template('index.html', message='Lorem Ipsum')
+    recentpost = Post.query.order_by(desc(Post.id)).first()
+    # created_at = datetime.fromtimestamp( int(recentpost.created_at )).strftime('%I:%M %p     %d %b %Y')
+
+
+    posts = Post.query.order_by(desc(Post.id)).all()
+
+
+    return render_template('index.html', recentpost=recentpost, posts=posts)
 
 
 
@@ -65,7 +73,7 @@ def addpost():
     form = PostForm()
     
     if form.validate_on_submit():
-        post = Post(title=form.title.data, description=form.description.data,user_id=current_user.id,created_at=datetime.now().timestamp() )
+        post = Post(title=form.title.data, description=form.description.data,user_id=current_user.id,created_at=datetime.now().strftime('%I:%M %p     %d %b %Y')  )   #datetime.now().timestamp()
        
         filename = photos.save(form.image.data)
         path = f'photos/{filename}'
@@ -81,3 +89,16 @@ def addpost():
 
     return render_template('post.html', form=form)
 
+
+
+@main.route('/subscribe', methods=['GET', 'POST'])
+def subscribe():
+    # print(request.form.get('email'))
+    subscription = Subscription(email=request.form.get('email'))
+    
+    db.session.add(subscription)
+    db.session.commit()
+
+    flash('Subscription submitted successfully','success')
+
+    return redirect(url_for('main.home'))

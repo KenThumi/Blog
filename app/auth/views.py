@@ -5,7 +5,7 @@ from .. import db
 from flask_login import login_user, login_required,logout_user
 from ..models import User
 from flask import render_template,redirect,url_for
-#from ..email import mail_message
+from ..email import mail_message
 
 
 @auth.route('/register',methods = ["GET","POST"])
@@ -16,7 +16,7 @@ def register():
         db.session.add(user)
         db.session.commit()
 
-        #mail_message("Welcome to Pitch App","email/welcome",user.email,user=user)
+        mail_message("Welcome to Blog App","email/welcome",user.email,user=user)
 
         return redirect(url_for('auth.login'))
         title = "New Account"

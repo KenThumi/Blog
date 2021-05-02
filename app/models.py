@@ -54,8 +54,23 @@ class Post(db.Model):
     description = db.Column(db.Text)
     image = db.Column(db.Text)
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
-    created_at = db.Column(db.Integer)
+    created_at = db.Column(db.Text)
     #comments = db.relationship('Comment',backref = 'pitch',lazy="dynamic")
 
     def __repr__(self):
         return f'Post Title: {self.title}'
+
+
+class Subscription(db.Model):
+    '''
+        Manages email subscription
+        Args: db.Models
+    '''
+
+    __tablename__ = 'subscriptions'
+
+    id = db.Column(db.Integer,primary_key = True)
+    email = db.Column(db.String(255), unique = True, index=True)
+
+    def __repr__(self):
+        return f'Email subscription: {self.email}'
