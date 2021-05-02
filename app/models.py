@@ -57,6 +57,12 @@ class Post(db.Model):
     created_at = db.Column(db.Text)
     #comments = db.relationship('Comment',backref = 'pitch',lazy="dynamic")
 
+    def postowner(self,id):
+        if self.user_id == id:
+            return True
+        else:
+            return False
+
     def __repr__(self):
         return f'Post Title: {self.title}'
 

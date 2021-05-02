@@ -114,3 +114,18 @@ def notify():
 
     for user in users:
         mail_message("New Arcticle","email/blog",user.email,user=user)
+
+
+@main.route('/editpost/<id>')
+def editpost(id):
+    post = Post.query.get(id)
+
+    form = PostForm()
+    form.title = post.title
+    form.description = post.description
+
+    return render_template('post.html', form=form)
+
+
+
+

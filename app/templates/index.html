@@ -11,10 +11,21 @@
     </div>
   {% endfor %}
       <div class="row">
+        {% if current_user.is_authenticated %}
+        <div class="col-12">
+              <div class="float-left">
+                <a href="{{ url_for('main.addpost')}}" target="_blank">
+                  Add Post
+                  <i class="fa fa-plus-circle ml-1" aria-hidden="true"></i>
+                </a>
+              </div>
+        </div>
+        <hr>
+        {%endif%}
           <!-- recent article -->
           <div class="col-md-9">
             <div class="card" style="width: 100%;">
-              {% if recentepost %}
+              {% if recentepost != '' %}
                 <img class="img-fluid" src="{{url_for('static',filename=recentpost.image)}}" alt="Card image cap">
                 <div class="card-body">
                     <h3>{{ recentpost.title | capitalize }}</h3>
@@ -35,6 +46,18 @@
                         </span>
                         </a>
                     </div>
+                  </p>
+                  <!-- <br> -->
+                  <p>
+                    {% if recentpost.postowner(current_user.id) %}
+                    <div class="mx-auto d-block" style="width: 69px;">
+                      <a href="#" target="_blank" >
+                        Edit
+                        <i class="fa fa-pencil-square-o ml-1" aria-hidden="true"></i>
+                      </a>
+                      
+                    </div>
+                    {% endif %}
                   </p>
                 </div>
               {%else%}
@@ -92,6 +115,18 @@
                         </span>
                         </a>
                     </div>
+                  </p>
+
+                  <p>
+                    {% if recentpost.postowner(current_user.id) %}
+                    <div class="mx-auto d-block">
+                      <a href="#" target="_blank" class="ml-2" >
+                        Edit
+                        <i class="fa fa-pencil-square-o ml-1" aria-hidden="true"></i>
+                      </a>
+                      
+                    </div>
+                    {% endif %}
                   </p>
                 </div>
               </div>
