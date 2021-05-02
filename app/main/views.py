@@ -1,8 +1,10 @@
 from . import main
 from flask import render_template,redirect,url_for, flash,request,abort
 from flask_login import login_required, current_user
-from ..models import User
+from ..models import User,Post
 from .. import db,photos
+from .forms import PostForm
+from datetime import datetime
 
 
 @main.route('/')
@@ -55,3 +57,27 @@ def update_pic(uname):
         user.profile_pic_path = path
         db.session.commit()
     return redirect(url_for('main.profile',uname=uname))
+
+
+@main.route('/addpost', methods=['GET', 'POST'])
+@login_required
+def addpost():
+    form = PostForm()
+    
+    if form.validate_on_submit():
+        post = Post(title=form.title.data, description=form.description.data,user_id=current_user.id,created_at=datetime.now().timestamp() )
+       
+        filename = photos.save(form.image.data)
+        path = f'photos/{filename}'
+        
+        post.image = path
+
+        db.session.add(post)
+
+        db.session.commit()
+
+        flash('Post submitted successfully','success')
+
+
+    return render_template('post.html', form=form)
+

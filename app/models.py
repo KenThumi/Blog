@@ -13,7 +13,7 @@ class User(db.Model, UserMixin):
     pass_secure = db.Column(db.String(255))
     bio = db.Column(db.String())
     profile_pic_path = db.Column(db.String())
-    # pitches = db.relationship('Pitch',backref = 'user',lazy="dynamic")
+    posts = db.relationship('Post',backref = 'user',lazy="dynamic")
     # comments = db.relationship('Comment',backref = 'user',lazy="dynamic")
 
     @property
@@ -38,3 +38,24 @@ class User(db.Model, UserMixin):
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
+
+
+class Post(db.Model):
+    '''
+        Manages a post 
+        Args: db.Models
+    '''
+
+    __tablename__ = 'posts'
+
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.Text)
+    description = db.Column(db.Text)
+    image = db.Column(db.Text)
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+    created_at = db.Column(db.Integer)
+    #comments = db.relationship('Comment',backref = 'pitch',lazy="dynamic")
+
+    def __repr__(self):
+        return f'Post Title: {self.title}'
