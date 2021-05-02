@@ -51,7 +51,7 @@
                   <p>
                     {% if recentpost.postowner(current_user.id) %}
                     <div class="mx-auto d-block" style="width: 69px;">
-                      <a href="#" target="_blank" >
+                      <a href="{{ url_for('main.editpost',id=recentpost.id)}}" target="_blank" >
                         Edit
                         <i class="fa fa-pencil-square-o ml-1" aria-hidden="true"></i>
                       </a>
@@ -97,7 +97,7 @@
             <div class="card mb-3" style="width: 100%;">
                 <img class="img-fluid" src="{{url_for('static',filename=post.image)}}" alt="Card image cap">
                 <div class="card-body">
-                    <h4>{{ recentpost.title | capitalize }}</h4>
+                    <h4>{{ post.title | capitalize }}</h4>
                     <p class="text-muted font-italic">
                       <i class="fa fa-clock-o mr-1" aria-hidden="true"></i>
                         {{post.created_at}}
@@ -118,9 +118,9 @@
                   </p>
 
                   <p>
-                    {% if recentpost.postowner(current_user.id) %}
+                    {% if post.postowner(current_user.id) %}
                     <div class="mx-auto d-block">
-                      <a href="#" target="_blank" class="ml-2" >
+                      <a  href="{{ url_for('main.editpost',id=post.id)}}" target="_blank" class="ml-2" >
                         Edit
                         <i class="fa fa-pencil-square-o ml-1" aria-hidden="true"></i>
                       </a>

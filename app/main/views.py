@@ -116,13 +116,34 @@ def notify():
         mail_message("New Arcticle","email/blog",user.email,user=user)
 
 
-@main.route('/editpost/<id>')
+@main.route('/editpost/<id>', methods=['GET', 'POST'])
+@login_required
 def editpost(id):
     post = Post.query.get(id)
 
     form = PostForm()
-    form.title = post.title
-    form.description = post.description
+    
+    
+    if form.validate_on_submit():
+        post = Post.query.get(id)
+        post.title = form.title.data
+        post.description = form.description.data
+
+        if not not form.image.data:
+            filename = photos.save(form.image.data)
+            path = f'photos/{filename}'
+            post.image = path
+
+        db.session.add(post)
+
+        db.session.commit()
+
+        flash('Post submitted successfully','success')
+
+        return redirect(url_for('main.home'))
+
+    form.title.data = post.title
+    form.description.data = post.description
 
     return render_template('post.html', form=form)
 
