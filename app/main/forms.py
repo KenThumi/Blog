@@ -13,3 +13,10 @@ class PostForm(FlaskForm):
     description = TextAreaField('Post', validators=[DataRequired()])
     image = FileField('Upload image',validators=[FileAllowed(photos, 'Image only!')])  # , FileRequired('File was empty!')
     submit = SubmitField('Submit')
+
+
+class CommentForm(FlaskForm):
+    '''Class to generate pitch form'''
+
+    comment = TextAreaField('Write a Comment', validators=[DataRequired()])
+    submit = SubmitField('Submit')

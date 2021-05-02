@@ -14,7 +14,7 @@ class User(db.Model, UserMixin):
     bio = db.Column(db.String())
     profile_pic_path = db.Column(db.String())
     posts = db.relationship('Post',backref = 'user',lazy="dynamic")
-    # comments = db.relationship('Comment',backref = 'user',lazy="dynamic")
+    comments = db.relationship('Comment',backref = 'user',lazy="dynamic")
 
     @property
     def password(self):
@@ -55,7 +55,7 @@ class Post(db.Model):
     image = db.Column(db.Text)
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
     created_at = db.Column(db.Text)
-    #comments = db.relationship('Comment',backref = 'pitch',lazy="dynamic")
+    comments = db.relationship('Comment',backref = 'post',lazy="dynamic")
 
     def postowner(self,id):
         if self.user_id == id:
@@ -80,3 +80,22 @@ class Subscription(db.Model):
 
     def __repr__(self):
         return f'Email subscription: {self.email}'
+
+
+
+class Comment(db.Model):
+    '''
+        Manages a comment
+        Args: db.Models
+    '''
+
+    __tablename__ = 'comments'
+
+    id = db.Column(db.Integer, primary_key=True)
+    comment = db.Column(db.Text)
+    post_id = db.Column(db.Integer,db.ForeignKey('posts.id'))
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+    
+
+    def __repr__(self):
+        return f'Comment: {self.comment}'

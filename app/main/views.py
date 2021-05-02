@@ -1,9 +1,9 @@
 from . import main
 from flask import render_template,redirect,url_for, flash,request,abort
 from flask_login import login_required, current_user
-from ..models import User,Post, Subscription
+from ..models import User,Post, Subscription, Comment
 from .. import db,photos
-from .forms import PostForm
+from .forms import PostForm, CommentForm
 from datetime import datetime
 from sqlalchemy import desc
 from ..email import mail_message
@@ -148,5 +148,24 @@ def editpost(id):
     return render_template('post.html', form=form)
 
 
+
+
+@main.route('/comment/<id>', methods = ["GET","POST"])
+# @login_required
+def comment(id):
+    form = CommentForm()
+
+    if form.validate_on_submit():
+        if Post.query.get(int(id)):
+            comment = Comment(comment=form.comment.data,post_id=int(id),user_id = current_user.id)
+            db.session.add(comment)
+            db.session.commit()
+            
+            flash('Comment added successfully','success')
+            return redirect( url_for('main.home'))
+        else:
+            flash('Subject blog post unretrievable','warning')
+
+    return render_template('commentForm.html', comment_form=form)
 
 

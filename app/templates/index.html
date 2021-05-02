@@ -39,7 +39,7 @@
                         <a href="#" class="float-left">read more>>>>></a>
                       </div>
                       <div class="float-right">
-                        <a href="#" target="_blank" class="card-link">
+                        <a href="#" target="_blank" class="card-link"  data-toggle="modal" data-target="#recent-modal-{{recentpost.id}}">
                         Comments
                         <span class="ml-1">
                             <i class="fa fa-comment" aria-hidden="true"></i>
@@ -59,6 +59,7 @@
                     </div>
                     {% endif %}
                   </p>
+                  {% include '_recentcomments_modal.html' %}
                 </div>
               {%else%}
                   <p class="p-3">
@@ -66,6 +67,7 @@
                   </p>
               {% endif %}
               </div>
+
           </div>
           <!-- quote -->
           <div class="col-md-3">
@@ -108,7 +110,7 @@
                         <a href="#" class="float-left">read more>>>>></a>
                       </div>
                       <div class="float-right">
-                        <a href="#" target="_blank" class="card-link"  data-toggle="modal" data-target="#modal">
+                        <a href="#" target="_blank" class="card-link"  data-toggle="modal" data-target="#modal-{{post.id}}">
                         Comments
                         <span class="ml-1">
                             <i class="fa fa-comment" aria-hidden="true"></i>
@@ -131,7 +133,7 @@
                 </div>
               </div>
           </div>
-          {% include '_blog_modal.html' %}
+          {% include '_comment_modal.html' %}
         {% endfor %}
       </div>
       <div class="my-2 text-center">
