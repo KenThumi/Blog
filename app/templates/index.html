@@ -51,10 +51,14 @@
                   <p>
                     {% if current_user.is_authenticated %}
                       {% if recentpost.postowner(current_user.id) %}
-                      <div class="mx-auto d-block" style="width: 69px;">
+                      <div class="mx-auto d-block" style="width: 20%;">
                         <a href="{{ url_for('main.editpost',id=recentpost.id)}}" target="_blank" >
                           Edit
                           <i class="fa fa-pencil-square-o ml-1" aria-hidden="true"></i>
+                        </a>|
+                        <a href="{{ url_for('main.deletepost',id=recentpost.id)}}" class="ml-2" onclick="return confirm('Confirm Post Delete')" >
+                          Delete
+                          <i class="fa fa-trash-o ml-1" aria-hidden="true"></i>
                         </a>
                         
                       </div>
@@ -120,15 +124,19 @@
                         </a>
                     </div>
                   </p>
-
+                  <br>
                   <p>
                     {% if post.postowner(current_user.id) %}
                     <div class="mx-auto d-block">
-                      <a  href="{{ url_for('main.editpost',id=post.id)}}" target="_blank" class="ml-2" >
+                      <a  href="{{ url_for('main.editpost',id=post.id)}}" target="_blank" class="float-left ml-2" >
                         Edit
                         <i class="fa fa-pencil-square-o ml-1" aria-hidden="true"></i>
                       </a>
-                      
+                      |
+                        <a href="{{ url_for('main.deletepost',id=post.id)}}" class="ml-2 float-right" onclick="return confirm('Confirm Post Delete')" >
+                          Delete
+                          <i class="fa fa-trash-o ml-1" aria-hidden="true"></i>
+                        </a>
                     </div>
                     {% endif %}
                   </p>

@@ -190,3 +190,21 @@ def fullpost(id):
 
 
     return render_template('fullpost.html',post=post)
+
+
+@main.route('/deletepost/<id>')
+@login_required
+def deletepost(id):
+    post = Post.query.get(int(id))
+    
+    if post.comments.count() == 0:
+        db.session.delete(post)
+        db.session.commit()
+        flash('Post deleted successfully','success')
+    else:
+        flash('Delete post comments first','danger')
+
+    return redirect(url_for('main.home'))
+
+
+
