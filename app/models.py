@@ -14,7 +14,6 @@ class User(db.Model, UserMixin):
     bio = db.Column(db.String())
     profile_pic_path = db.Column(db.String())
     posts = db.relationship('Post',backref = 'user',lazy="dynamic")
-    comments = db.relationship('Comment',backref = 'user',lazy="dynamic")
 
     @property
     def password(self):
@@ -94,8 +93,9 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     comment = db.Column(db.Text)
     post_id = db.Column(db.Integer,db.ForeignKey('posts.id'))
-    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
     
 
     def __repr__(self):
         return f'Comment: {self.comment}'
+
+

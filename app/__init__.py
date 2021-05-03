@@ -42,5 +42,9 @@ def create_app(config_name):
     # configure UploadSet
     configure_uploads(app,photos)
 
+    # setting config
+    from .requests import configure_request
+    configure_request(app)
+
 
     return app

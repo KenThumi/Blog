@@ -7,6 +7,7 @@ from .forms import PostForm, CommentForm
 from datetime import datetime
 from sqlalchemy import desc
 from ..email import mail_message
+from ..requests import get_quote
 
 
 @main.route('/')
@@ -16,11 +17,12 @@ def home():
     recentpost = Post.query.order_by(desc(Post.id)).first()
     # created_at = datetime.fromtimestamp( int(recentpost.created_at )).strftime('%I:%M %p     %d %b %Y')
 
+    quote = get_quote()
 
     posts = Post.query.order_by(desc(Post.id)).all()
 
 
-    return render_template('index.html', recentpost=recentpost, posts=posts)
+    return render_template('index.html', recentpost=recentpost, posts=posts, quote=quote)
 
 
 
@@ -157,7 +159,7 @@ def comment(id):
 
     if form.validate_on_submit():
         if Post.query.get(int(id)):
-            comment = Comment(comment=form.comment.data,post_id=int(id),user_id = current_user.id)
+            comment = Comment(comment=form.comment.data,post_id=int(id))
             db.session.add(comment)
             db.session.commit()
             

@@ -76,9 +76,9 @@
                 <div class="card-body">
                     <h4>Quote of the moment</h4>
                    
-                  <p class="card-text font-italic">"Some quick example text to build on the card title and make up the bulk of the card's content."</p>
+                  <p class="card-text font-italic">"{{ quote.get('quote')}}"</p>
                   <small class="float-right text-muted text-italic">
-                      - Author
+                      - {{ quote.get('author')}}
                   </small>
                 </div>
               </div>
