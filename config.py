@@ -12,6 +12,10 @@ class Config:
     MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
     MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
     QUOTE_API_URL = 'http://quotes.stormconsultancy.co.uk/random.json'
+    
+     # simple mde  configurations
+    SIMPLEMDE_JS_IIFE = True
+    SIMPLEMDE_USE_CDN = True
 
 
 class DevConfig(Config):
@@ -44,7 +48,7 @@ class TestConfig(Config):
     Args:
         Config: The parent configuration class with General configuration settings
     '''
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://kenneth:admin@localhost/pitchapp_test'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://kenneth:admin@localhost/blog_test'
 
 
 config_options = {

@@ -15,7 +15,6 @@ def home():
     '''Home route'''
 
     recentpost = Post.query.order_by(desc(Post.id)).first()
-    # created_at = datetime.fromtimestamp( int(recentpost.created_at )).strftime('%I:%M %p     %d %b %Y')
 
     quote = get_quote()
 
