@@ -90,6 +90,8 @@ def addpost():
 
         flash('Post submitted successfully','success')
 
+        return redirect(url_for('main.home'))
+
 
     return render_template('post.html', form=form)
 
@@ -141,7 +143,7 @@ def editpost(id):
 
         flash('Post submitted successfully','success')
 
-        return redirect(url_for('main.home'))
+        return redirect(url_for('main.fullpost',id=post.id))
 
     form.title.data = post.title
     form.description.data = post.description
