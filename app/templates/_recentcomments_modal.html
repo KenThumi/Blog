@@ -3,27 +3,29 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content p-3">
         <ul class="my-2 list-group">
-          {% if recentpost.comments.count() > 0 %}
-              {% for comment in recentpost.comments %}
+          {% if recentpost!=None %}
+              {% if recentpost.comments.count() > 0 %}
+                  {% for comment in recentpost.comments %}
+                    <li class="list-group-item">
+                      <div class="text-italic">
+                          {{ comment.comment }}
+                      </div><br>
+                      {% if recentpost.postowner(current_user.id) %}
+                      <small class="text-muted float-left"> 
+                        <a href="{{ url_for('main.deletecomment',id=comment.id)}}">
+                          
+                          <i class="fa fa-trash-o mr-1" aria-hidden="true"></i> Delete
+                        </a>
+                      </small>
+                  {% endif %}
+                        
+                      </li>
+                  {% endfor %}
+              {% else %}
                 <li class="list-group-item">
-                  <div class="text-italic">
-                      {{ comment.comment }}
-                  </div><br>
-                  {% if recentpost.postowner(current_user.id) %}
-                  <small class="text-muted float-left"> 
-                    <a href="{{ url_for('main.deletecomment',id=comment.id)}}">
-                      
-                      <i class="fa fa-trash-o mr-1" aria-hidden="true"></i> Delete
-                    </a>
-                  </small>
-               {% endif %}
-                     
-                  </li>
-              {% endfor %}
-          {% else %}
-             <li class="list-group-item">
-                 No Comments
-             </li>
+                    No Comments
+                </li>
+              {%endif%}
           {%endif%}
       </ul>
       <a href="{{ url_for('main.comment',id=recentpost.id)}}" target="_blank"  class="btn btn-sm  btn-info my-1 mx-2">

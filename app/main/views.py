@@ -20,7 +20,6 @@ def home():
 
     posts = Post.query.order_by(desc(Post.id)).all()
 
-
     return render_template('index.html', recentpost=recentpost, posts=posts, quote=quote)
 
 

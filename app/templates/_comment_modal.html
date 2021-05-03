@@ -3,27 +3,29 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content p-3">
         <ul class="my-2 list-group">
-          {% if post.comments.count() > 0 %}
-              {% for comment in post.comments %}
-                <li class="list-group-item">
-                  <div class="text-italic">
-                      {{ comment.comment }}
-                  </div><br>
-                  {% if post.postowner(current_user.id) %}
-                     <small class="text-muted float-left"> 
-                       <a href="{{ url_for('main.deletecomment',id=comment.id)}}">
-                         
-                         <i class="fa fa-trash-o mr-1" aria-hidden="true"></i> Delete
-                       </a>
-                     </small>
-                  {% endif %}
-                      
+          {% if post!=None %}
+                {% if post.comments.count() > 0 %}
+                    {% for comment in post.comments %}
+                      <li class="list-group-item">
+                        <div class="text-italic">
+                            {{ comment.comment }}
+                        </div><br>
+                        {% if post.postowner(current_user.id) %}
+                          <small class="text-muted float-left"> 
+                            <a href="{{ url_for('main.deletecomment',id=comment.id)}}">
+                              
+                              <i class="fa fa-trash-o mr-1" aria-hidden="true"></i> Delete
+                            </a>
+                          </small>
+                        {% endif %}
+                            
+                        </li>
+                    {% endfor %}
+                {% else %}
+                  <li class="list-group-item">
+                      No Comments
                   </li>
-              {% endfor %}
-          {% else %}
-             <li class="list-group-item">
-                 No Comments
-             </li>
+                {%endif%}
           {%endif%}
       </ul>
       <a href="{{ url_for('main.comment',id=post.id)}}" target="_blank"  class="btn btn-sm  btn-info my-1 mx-2">
